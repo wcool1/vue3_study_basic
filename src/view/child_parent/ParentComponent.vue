@@ -1,37 +1,36 @@
 <template>
-  <ChildComponent @message-event="handleMessageEvent" />
-  <p>{{ messageFromChild }}</p>
+  <div>
+    <ChildComponent 
+      @message-event="handleMessage"
+      @data-updated="handleData"
+      @user-action="handleUserAction"
+    />
+    <div>收到的消息: {{ message }}</div>
+    <div>更新的数据: {{ updateInfo }}</div>
+    <div>用户操作: {{ userActionInfo }}</div>
+  </div>
 </template>
-<!-- 选项式 -->
-<!-- <script>
-import ChildComponent from './ChildComponent.vue'
-export default {
-  components: {
-    ChildComponent//注册组件
-  },
-  data() {
-    return {
-      messageFromChild: ''
-    };
-  },
-  methods: {
-    handleMessageEvent(message) {
-      this.messageFromChild = message;
-    }
-  }
-};
 
-</script> -->
-<!-- 组合式 -->
 <script setup>
-
-import { ref } from 'vue';
-
+import { ref } from 'vue'
 import ChildComponent from './ChildComponent.vue'
-// 必须遵循js的规范，任何变量使用前必须申明
-let messageFromChild = ref('');
 
-const handleMessageEvent = (message) => {
-  messageFromChild.value = message;
-};
+const message = ref('')
+const updateInfo = ref({})
+const userActionInfo = ref({})
+
+function handleMessage(msg) {
+  message.value = msg
+  console.log('收到消息:', msg)
+}
+
+function handleData(data) {
+  updateInfo.value = data
+  console.log('数据更新:', data)
+}
+
+function handleUserAction(action) {
+  userActionInfo.value = action
+  console.log('用户操作:', action)
+}
 </script>

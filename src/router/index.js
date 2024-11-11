@@ -1,11 +1,11 @@
 import Try from '../view/try.vue';
 import C_p from '../view/child_parent/ParentComponent.vue';
-import ParentComponent from '../view/parent_child/ParentComponent.vue';
+import p_c from '../view/parent_child/ParentComponent2.vue';
 import Live from '../view/live.vue';
 import Found from '../view/found.vue';
 import if_for from '../view/if_for.vue';
 import DealBlind from '../view/deal_blind.vue'; // 根据实际路径修改
-
+import watch from '../view/watch.vue'
 const routes = [
   {
     path: '/try',
@@ -15,7 +15,7 @@ const routes = [
   {
     path:'/p_c',
     name:"p_c",
-    component:ParentComponent
+    component:p_c
 
   },
   {
@@ -42,6 +42,11 @@ const routes = [
     path: '/deal_blind',
     name: 'DealBlind',
     component: DealBlind
+  },
+  {
+    path:'/watch',
+    name:'watch',
+    component:watch
   }
  
 

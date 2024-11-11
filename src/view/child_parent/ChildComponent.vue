@@ -1,25 +1,30 @@
 <template>
-  <button @click="sendMessage">Send Message</button>
+  <div>
+    <button @click="sendMessage">发送消息</button>
+    <button @click="updateData">更新数据</button>
+    <button @click="userAction">用户操作</button>
+  </div>
 </template>
 
-<!-- <script>
-选项式
-export default {
-  methods: {
-    sendMessage() {
-      this.$emit('message-event', 'Hello from child');
-    }
-  }
-};
-</script> -->
-
-<!-- 组合式 -->
 <script setup>
-import { defineEmits } from 'vue';
+const emit = defineEmits(['message-event', 'data-updated', 'user-action'])//是自定义事件名（能体现意义最好）被父组件监听
 
-const emit = defineEmits(['message-event']);
+function sendMessage() {
+  emit('message-event', '这是来自子组件的消息')
+}
 
-const sendMessage = () => {
-  emit('message-event', 'Hello from child');
-};
+function updateData() {
+  emit('data-updated', {
+    id: 1,
+    timestamp: new Date().toISOString(),
+    data: '更新的数据'
+  })
+}
+
+function userAction() {
+  emit('user-action', {
+    type: 'click',
+    component: 'ChildComponent'
+  })
+}
 </script>

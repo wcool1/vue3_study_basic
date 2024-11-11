@@ -1,6 +1,6 @@
-<!-- ParentComponent.vue -->
+ <!-- ParentComponent.vue -->
 <template>
-  <ChildComponent :message="parentMessage" />
+  <ChildComponent2 :message="parentMessage" />
 </template>
 <!-- 选项式API -->
 <!-- <script>
@@ -28,7 +28,6 @@ export default {
 <!-- 组合式API -->
 
 <script setup>
-import ChildComponent from './ChildComponent.vue';
-const parentMessage = 'Hello, Child!';
+const parentMessage = 'Hello  from parent';
 </script>
 
