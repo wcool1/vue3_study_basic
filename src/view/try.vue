@@ -1,32 +1,47 @@
 <template>
-    <div>{{ count }}</div>
-    <button @click="onClick">
-        增加 1
-    </button>
   <div>
-    <span>{{ value }}</span>
-    <br>
-    <span>{{ reversedValue }}</span>
+    <p>Count: {{ count }}</p>
+    <p>Double Count: {{ doubleCount }}</p>
+    <p>Username: {{ username || '未登录' }}</p>
+    
+    <button @click="increment">+1</button>
+    <!-- 点击按钮触发login方法,传入参数admin到login action -->
+    <button @click="login('admin')">Login</button>
+    <!-- 添加重置按钮 -->
+    <input 
+      v-model="newUsername" 
+      placeholder="输入新用户名"
+    >
+    <button @click="resetUsername">Reset User</button>
   </div>
 </template>
 
-<script setup>
-const value = ref('this is a value')
+<script>
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
-// 注意这里
-const reversedValue = computed(() => {
-  // 使用 ref 需要 .value
-  return value.value
-    .split('').reverse().join('');
-})
+export default {
+  setup() {
+    const store = useStore()//获取store实例
+    const newUsername = ref('') // 新增响应式变量存储输入值
+    return {
+      // 读取状态
+      count: computed(() => store.state.Try.count),
+      doubleCount: computed(() => store.getters.doubleCount),
+      username: computed(() => store.state.Try.username),
+      newUsername,//这其实是newUsername:newUsername的简写;代表将newUsername暴露给模板即将输入框的值暴重新赋值给newUsername（不能忽略）
 
-let count = ref(0)
-const onClick = () => {
-    count.value++
+      // 状态修改：mutations
+      increment: () => store.commit('increment'),//提交一个名为increment的变化
+      // 重置用户名
+      resetUsername: () => {
+        store.commit('setUsername', newUsername.value)//提交一个名为setUsername的变化
+        newUsername.value = '' // 清空输入框
+      },
+      //action：异步操作
+      login: (username) => store.dispatch('login', username),//分发一个名为login的action
+     
+    }
+  }
 }
-import useLocalStorage from '../hooks/useLocalStorage';
-
-const { data } = useLocalStorage('myData', { name: 'default' });
-//输出localStorage的值
-
 </script>
