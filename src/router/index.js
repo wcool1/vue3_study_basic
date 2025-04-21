@@ -6,6 +6,7 @@ import Found from '../view/found.vue';
 import if_for from '../view/if_for.vue';
 import DealBlind from '../view/deal_blind.vue'; // 根据实际路径修改
 import watch from '../view/watch.vue'
+import inject_provide from '../view/inject_provide/grandpa.vue'
 const routes = [
   {
     path: '/try',
@@ -47,6 +48,11 @@ const routes = [
     path:'/watch',
     name:'watch',
     component:watch
+  },
+  {
+    path:'/inject_provide',
+    name:'inject_provide',
+    component:inject_provide
   }
  
 
